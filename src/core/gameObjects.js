@@ -22,7 +22,7 @@ const Level = function (options) {
         color: '#fff',
         font: '30px Arial',
         label: 'Level:',
-        level: 0,
+        level: 1,
         x: 850,
         y: 30,
     };
