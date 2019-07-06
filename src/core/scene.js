@@ -20,12 +20,13 @@ const Scene = function (options) {
 
 Scene.prototype.render = function () {
     const self = this;
-    const { ctx, explosions, monsters, mouseMoveOffset, rockets, score, sniper, steps, } = this;
+    const { ctx, explosions, life, monsters, mouseMoveOffset, rockets, score, sniper, steps, } = this;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
 
     score.draw(self);
     sniper.draw(self, mouseMoveOffset);
+    life.draw(self);
 
     rockets.forEach((rock, i) => {
         rock.draw(self, () => {
@@ -70,6 +71,7 @@ Scene.prototype.init = function(width, height) {
     this.monsters = [];
     this.rockets = [];
     this.steps = [];
+    this.life = new gameObjects.Life();
     this.score = new gameObjects.Score();
     this.sniper = new gameObjects.Sniper();
 

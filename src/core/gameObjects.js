@@ -17,6 +17,45 @@ const init = function(elements) {
     });
 };
 
+const Life = function (options) {
+    this.lifeData = {
+        colors: {
+            baseColor: '#DCDCDC',
+            dangerColor: '#FF0000',
+            fullColor: '#00FF00',
+            middleColor: '#FFFF00',
+        },
+        life        : 100,
+        r		    : 65,
+        width	    : 5,
+    };
+
+    const { lifeData } = this;
+
+    lifeData.draw = function(scene, cb) {
+        const { ctx, sniper } = scene;
+        const { x, y } = sniper;
+        const { r, colors, width, } = lifeData;
+
+        ctx.beginPath();
+        ctx.strokeStyle = colors.baseColor;
+        ctx.lineWidth = width;
+
+        ctx.arc(x, y, r, 0, 2 * Math.PI);
+
+        if (lifeData.life <= 0) {
+            if (typeof cb == "function") cb();
+        }
+
+        ctx.closePath();
+        ctx.stroke();
+    };
+
+    Object.assign(lifeData, options);
+
+    return lifeData;
+};
+
 const Score = function (options) {
     this.scoreData = {
         color: '#fff',
@@ -375,6 +414,7 @@ const Monster = function (options) {
 export {
     Explosion,
     init,
+    Life,
     Monster,
     Rocket,
     Score,
