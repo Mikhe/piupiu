@@ -17,6 +17,33 @@ const init = function(elements) {
     });
 };
 
+const Level = function (options) {
+    this.levelData = {
+        color: '#fff',
+        font: '30px Arial',
+        label: 'Level:',
+        level: 0,
+        x: 850,
+        y: 30,
+    };
+
+    const { levelData } = this;
+
+    levelData.draw = function(scene) {
+        const { color, font, label, level, x, y } = levelData;
+        const { ctx } = scene;
+        const text = `${label} ${level}`;
+
+        ctx.fillStyle = color;
+        ctx.font = font;
+        ctx.fillText(text, x, y);
+    };
+
+    Object.assign(levelData, options);
+
+    return levelData;
+};
+
 const GameOver = function (options) {
     this.gameData = {
         color: '#fff',
@@ -472,6 +499,7 @@ export {
     Explosion,
     GameOver,
     init,
+    Level,
     Life,
     Monster,
     Rocket,

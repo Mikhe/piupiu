@@ -20,12 +20,14 @@ const Scene = function (options) {
 
 Scene.prototype.render = function () {
     const self = this;
-    const { ctx, explosions, life, monsters, mouseMoveOffset, rockets, score, sniper, steps, } = this;
+    const { ctx, explosions, level, life, monsters, mouseMoveOffset, rockets, score, sniper, steps, } = this;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
 
+    level.draw(self);
     score.draw(self);
     sniper.draw(self, mouseMoveOffset);
+
     life.draw(self, () => {
         self.destroy();
     });
@@ -56,7 +58,7 @@ Scene.prototype.render = function () {
 };
 
 Scene.prototype.destroy = function() {
-    const { ctx, drawingInterval, gameover, monsterInterval, settings, score } = this;
+    const { ctx, drawingInterval, gameover, level, monsterInterval, settings, score } = this;
     const { height, width } = ctx.canvas;
 
     clearInterval(monsterInterval);
@@ -64,8 +66,9 @@ Scene.prototype.destroy = function() {
 
     setTimeout(() => {
         ctx.clearRect(0, 0, width, height);
-        score.draw(this);
         gameover.draw(this);
+        level.draw(this);
+        score.draw(this);
     }, settings.drawSceneSpeed);
 };
 
@@ -79,6 +82,7 @@ Scene.prototype.init = function(width, height) {
     this.rockets = [];
     this.steps = [];
     this.gameover = new gameObjects.GameOver();
+    this.level = new gameObjects.Level();
     this.life = new gameObjects.Life();
     this.score = new gameObjects.Score();
     this.sniper = new gameObjects.Sniper();
