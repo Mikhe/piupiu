@@ -1,23 +1,25 @@
 import * as gameObjects from './gameObjects';
 
 const Scene = function (options) {
-    const { drawSceneSpeed, sceneName, } = options || {};
+    const { drawSceneSpeed, monsterGenerateInterval, sceneName, } = options || {};
 
     this.sceneName = sceneName || 'scene';
     this.settings = {
         drawSceneSpeed: drawSceneSpeed || 16.66666666,
+        monsterGenerateInterval: monsterGenerateInterval || 2000,
     };
 
 
     gameObjects.init([
         { code: "explosion", src:  "images/explosion.png"},
+        { code: "monster", src:  "images/monster.png"},
+        { code: "rocket", src:  "images/rocket.png"},
         { code: "sniper", src:  "images/sniper.png"},
-        { code: "rocket", src:  "images/rocket.png"}
     ]);
 };
 
 Scene.prototype.render = function () {
-    const { ctx, explosions, mouseMoveOffset, rockets, sniper, steps, } = this;
+    const { ctx, explosions, monsters, mouseMoveOffset, rockets, sniper, steps, } = this;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
 
@@ -43,24 +45,33 @@ Scene.prototype.render = function () {
             explosions.splice(i, 1);
         });
     });
+
+    // draw monsters
+    monsters.forEach((mon, i) => {
+        mon.draw(ctx, () => {
+            monsters.splice(i, 1);
+        });
+    });
 };
 
 Scene.prototype.destroy = function() {
-    const { ctx, drawingInterval } = this;
+    const { ctx, drawingInterval, monsterInterval } = this;
     const { height, width } = ctx.canvas;
 
     ctx.clearRect(0, 0, width, height);
+    clearInterval(monsterInterval);
     clearInterval(drawingInterval);
 };
 
-Scene.prototype.init = function() {
+Scene.prototype.init = function(width, height) {
     const self = this;
     this.canvas = document.getElementById(this.sceneName);
     this.ctx = this.canvas.getContext('2d');
 
+    this.explosions = [];
+    this.monsters = [];
     this.rockets = [];
     this.steps = [];
-    this.explosions = [];
     this.sniper = new gameObjects.Sniper();
 
     this.mouseMoveOffset = { x: 0, y: 0};
@@ -80,6 +91,17 @@ Scene.prototype.init = function() {
         self.render();
     }, settings.drawSceneSpeed);
 
+    this.monsterInterval = setInterval(() => {
+        self.monsters.push(new gameObjects.Monster({
+            px:     sniper.x,
+            py:     sniper.y,
+            mx:     mouseMoveOffset.x,
+            my:     mouseMoveOffset.y,
+            maxX:   width,
+            maxY:   height,
+        }));
+    }, settings.monsterGenerateInterval);
+
     canvas.addEventListener('mousedown', (e) => {
         const { originalEvent, which } = e;
 
@@ -94,7 +116,6 @@ Scene.prototype.init = function() {
         switch (which) {
             case 1: // left button
 
-                //add a rocket
                 rockets.push(new gameObjects.Rocket({
                     mx 		: mouseMoveOffset.x,
                     my  	: mouseMoveOffset.y,

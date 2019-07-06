@@ -2,9 +2,12 @@ import React, { PureComponent } from 'react';
 
 import Scene from './core/scene';
 
+const width = 1000;
+const height = 600;
+
 class App extends PureComponent {
   componentDidMount() {
-    (new Scene()).init();
+    (new Scene()).init(width, height);
   }
 
   onContextMenu(e) {
@@ -14,7 +17,7 @@ class App extends PureComponent {
 
   render() {
     return (
-        <canvas id="scene" width="1000" height="600" tabIndex="1" onContextMenu={this.onContextMenu}></canvas>
+        <canvas id="scene" width={width} height={height} onContextMenu={this.onContextMenu}></canvas>
     );
   }
 }
