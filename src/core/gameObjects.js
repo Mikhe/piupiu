@@ -236,8 +236,8 @@ const Monster = function (options) {
     this.monsterData = {
         mx:                     0,
         my:                     0,
-        w:                      70,
-        h:                      60,
+        w:                      42,
+        h:                      31,
         px:                     0,
         py:                     0,
         speed:                  1,
