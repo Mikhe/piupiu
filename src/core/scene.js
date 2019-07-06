@@ -6,6 +6,8 @@ const Scene = function (options) {
     this.sceneName = sceneName || 'scene';
     this.settings = {
         drawSceneSpeed: drawSceneSpeed || 16.66666666,
+        levelUp: 0,
+        monsterSpeed: 1,
         monsterGenerateInterval: monsterGenerateInterval || 2000,
     };
 
@@ -16,6 +18,10 @@ const Scene = function (options) {
         { code: "rocket", src:  "images/rocket.png"},
         { code: "sniper", src:  "images/sniper.png"},
     ]);
+};
+
+Scene.prototype.getMonsterSpeed = function() {
+    return this.settings.monsterSpeed;
 };
 
 Scene.prototype.render = function () {
@@ -112,6 +118,7 @@ Scene.prototype.init = function(width, height) {
             my:     mouseMoveOffset.y,
             maxX:   width,
             maxY:   height,
+            speed:  self.getMonsterSpeed(),
         }));
     }, settings.monsterGenerateInterval);
 

@@ -331,6 +331,11 @@ const Rocket = function (options) {
 
         if (hit) {
             scene.score.score++;
+            if (scene.score.score === scene.settings.levelUp) {
+                scene.score.score = 0;
+                scene.level.level++;
+                scene.settings.monsterSpeed += 1;
+            }
         }
 
         return hit;
@@ -397,7 +402,7 @@ const Monster = function (options) {
         h:                      31,
         px:                     0,
         py:                     0,
-        speed:                  1,
+        speed:                  options.speed,
         position:               0,
         maxPosition:            0,
         maxX:                   options.maxX,
