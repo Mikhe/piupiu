@@ -6,7 +6,7 @@ const Scene = function (options) {
     this.sceneName = sceneName || 'scene';
     this.settings = {
         drawSceneSpeed: drawSceneSpeed || 16.66666666,
-        levelUp: 0,
+        levelUp: 30,
         monsterSpeed: 1,
         monsterGenerateInterval: monsterGenerateInterval || 2000,
     };
@@ -112,10 +112,6 @@ Scene.prototype.init = function(width, height) {
 
     this.monsterInterval = setInterval(() => {
         self.monsters.push(new gameObjects.Monster({
-            px:     sniper.x,
-            py:     sniper.y,
-            mx:     mouseMoveOffset.x,
-            my:     mouseMoveOffset.y,
             maxX:   width,
             maxY:   height,
             speed:  self.getMonsterSpeed(),

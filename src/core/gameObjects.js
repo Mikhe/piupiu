@@ -396,12 +396,8 @@ const Rocket = function (options) {
 
 const Monster = function (options) {
     this.monsterData = {
-        mx:                     0,
-        my:                     0,
         w:                      42,
         h:                      31,
-        px:                     0,
-        py:                     0,
         speed:                  options.speed,
         position:               0,
         maxPosition:            0,
@@ -454,14 +450,14 @@ const Monster = function (options) {
     };
 
     monsterData.draw = function(scene, cb) {
-        const { ctx } = scene;
+        const { ctx, sniper } = scene;
         const { checkHit, h, image, speed, position, px, py, w, x, y } = monsterData;
 
         let stepX = speed;
         let stepY = speed;
 
-        const diffX = tools.getDiff(px, x);
-        const diffY = tools.getDiff(py, y);
+        const diffX = tools.getDiff(sniper.x, x);
+        const diffY = tools.getDiff(sniper.y, y);
 
         if (diffX > diffY) {
             stepY = diffY / diffX * speed;
@@ -475,21 +471,21 @@ const Monster = function (options) {
             return;
         }
 
-        if (px > x) {
+        if (sniper.x > x) {
             monsterData.x += stepX;
-        } else if (px < x) {
+        } else if (sniper.x < x) {
             monsterData.x -= stepX;
         }
 
-        if (py > y) {
+        if (sniper.y > y) {
             monsterData.y += stepY;
-        } else if (py < y) {
+        } else if (sniper.y < y) {
             monsterData.y -= stepY;
         }
 
         ctx.save();
         ctx.translate(monsterData.x, monsterData.y);
-        px && ctx.rotate(Math.atan2(py - monsterData.y, px - monsterData.x) + Math.PI/2);
+        px && ctx.rotate(Math.atan2(sniper.y - monsterData.y, sniper.x - monsterData.x) + Math.PI/2);
         tools.updatePosition(monsterData);
         ctx.drawImage(image, position * w,  0, w, h, -12, -31, w, h);
         ctx.restore();
