@@ -17,6 +17,34 @@ const init = function(elements) {
     });
 };
 
+const Score = function (options) {
+    this.scoreData = {
+        color: '#fff',
+        font: '30px Arial',
+        label: 'Score:',
+        score: 0,
+        x: 20,
+        y: 20,
+    };
+
+    const { scoreData } = this;
+
+    scoreData.draw = function(scene) {
+        const { color, font, label, score, x, y } = scoreData;
+        const { ctx } = scene;
+        const text = `${label} ${score}`;
+
+        ctx.fillStyle = color;
+        ctx.font = font;
+        ctx.fillText(text, x, y);
+    };
+
+    //checking custom options
+    Object.assign(scoreData, options);
+
+    return scoreData;
+};
+
 const Sniper = function (options) {
     this.sniperData = {
         x					: 400,
@@ -97,7 +125,7 @@ const Step = function (options) {
         r		    : 5,
         maxR	    : 18,
         speed	    : 0.6,
-        style	    : "#8B1516",
+        style	    : '#8B1516',
         isStarted	: false,
         width	    : 2,
     };
@@ -351,6 +379,7 @@ export {
     init,
     Monster,
     Rocket,
+    Score,
     Sniper,
     Step,
 }
