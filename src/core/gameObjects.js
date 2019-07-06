@@ -183,9 +183,27 @@ const Rocket = function (options) {
 
     const { rocketData } = this;
 
+    rocketData.checkTargets = function(scene) {
+        const { x, y } = rocketData;
+        const { monsters } = scene;
+        const initialLength = monsters.length;
+
+        scene.monsters = monsters.filter(mon => {
+            const diffX = tools.getDiff(mon.x, x);
+            const diffY = tools.getDiff(mon.y, y);
+
+            return !(diffX < 20 && diffY < 20);
+
+
+        });
+
+        return initialLength !== scene.monsters.length;
+    };
+
     rocketData.draw = function(scene, cb) {
         const { explosions, ctx } = scene;
-        const { h, image, speed, position, px, py, w, x, y } = rocketData;
+        const { checkTargets, h, image, speed, position, px, py, w, x, y } = rocketData;
+        const hasTarget = checkTargets(scene);
 
         let stepX = speed;
         let stepY = speed;
@@ -199,7 +217,7 @@ const Rocket = function (options) {
             stepX = diffX / diffY * speed;
         }
 
-        if (diffX < speed && diffY < speed) {
+        if (hasTarget || (diffX < speed && diffY < speed)) {
             explosions.push(new Explosion({
                 x: x,
                 y: y
