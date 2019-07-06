@@ -24,7 +24,7 @@ const Score = function (options) {
         label: 'Score:',
         score: 0,
         x: 20,
-        y: 20,
+        y: 30,
     };
 
     const { scoreData } = this;
