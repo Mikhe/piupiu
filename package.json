@@ -7,7 +7,7 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
   },
-  "description": "My CV application",
+  "description": "Just for fun",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
