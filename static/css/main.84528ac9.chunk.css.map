@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACE,kBACF,CAEA,OACE,aAAc,CACd,aAAc,CACd,kBAAmB,CACnB,YACF","file":"main.84528ac9.chunk.css","sourcesContent":["html {\n  background: #1e1f21;\n}\n\ncanvas {\n  margin: 0 auto;\n  display: block;\n  background: #252729;\n  outline: none;\n}\n"]}
