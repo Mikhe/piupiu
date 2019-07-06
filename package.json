@@ -1,0 +1,47 @@
+{
+  "name": "piu-piu",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1"
+  },
+  "description": "My CV application",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mikhe/piupiu.git"
+  },
+  "author": "Sergei Mikhailovskikh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mikhe/piupiu/issues"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  },
+  "homepage": "https://mikhe.github.io/piupiu/"
+}
