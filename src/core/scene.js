@@ -27,28 +27,24 @@ Scene.prototype.render = function () {
     score.draw(self);
     sniper.draw(self, mouseMoveOffset);
 
-    // draw rockets
     rockets.forEach((rock, i) => {
         rock.draw(self, () => {
             rockets.splice(i, 1);
         });
     });
 
-    // draw steps
     steps.forEach((step, i) => {
         step.draw(self, () => {
             steps.splice(i, 1);
         });
     });
 
-    // draw explosions
     explosions.forEach((exp, i) => {
         exp.draw(self, () => {
             explosions.splice(i, 1);
         });
     });
 
-    // draw monsters
     monsters.forEach((mon, i) => {
         mon.draw(self, () => {
             monsters.splice(i, 1);

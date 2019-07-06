@@ -39,7 +39,6 @@ const Score = function (options) {
         ctx.fillText(text, x, y);
     };
 
-    //checking custom options
     Object.assign(scoreData, options);
 
     return scoreData;
@@ -112,7 +111,6 @@ const Sniper = function (options) {
         ctx.restore();
     };
 
-    //checking custom options
     Object.assign(sniperData, options);
 
     return sniperData;
@@ -155,7 +153,6 @@ const Step = function (options) {
         ctx.stroke();
     };
 
-    //checking custom options
     Object.assign(stepData, options);
 
     return stepData;
@@ -187,7 +184,6 @@ const Explosion = function (options) {
         }
     };
 
-    //checking custom options
     Object.assign(explosionData, options);
 
     return explosionData;
@@ -280,7 +276,6 @@ const Rocket = function (options) {
         ctx.restore();
     };
 
-    //checking custom options
     Object.assign(rocketData, options);
 
     return rocketData;
@@ -372,7 +367,6 @@ const Monster = function (options) {
         ctx.restore();
     };
 
-    //checking custom options
     Object.assign(monsterData, options);
 
     return monsterData;
