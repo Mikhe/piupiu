@@ -19,36 +19,37 @@ const Scene = function (options) {
 };
 
 Scene.prototype.render = function () {
+    const self = this;
     const { ctx, explosions, monsters, mouseMoveOffset, rockets, sniper, steps, } = this;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // clear canvas
 
-    sniper.draw(ctx, mouseMoveOffset);
+    sniper.draw(self, mouseMoveOffset);
 
     // draw rockets
     rockets.forEach((rock, i) => {
-        rock.draw(ctx, explosions, () => {
+        rock.draw(self, () => {
             rockets.splice(i, 1);
         });
     });
 
     // draw steps
     steps.forEach((step, i) => {
-        step.draw(ctx, () => {
+        step.draw(self, () => {
             steps.splice(i, 1);
         });
     });
 
     // draw explosions
     explosions.forEach((exp, i) => {
-        exp.draw(ctx, () => {
+        exp.draw(self, () => {
             explosions.splice(i, 1);
         });
     });
 
     // draw monsters
     monsters.forEach((mon, i) => {
-        mon.draw(ctx, () => {
+        mon.draw(self, () => {
             monsters.splice(i, 1);
         });
     });

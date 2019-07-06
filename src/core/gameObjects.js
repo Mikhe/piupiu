@@ -34,7 +34,8 @@ const Sniper = function (options) {
 
     const { sniperData } = this;
 
-    sniperData.draw = function(ctx, mouseMoveOffset) {
+    sniperData.draw = function(scene, mouseMoveOffset) {
+        const { ctx } = scene;
         const { h, image, isMoving, sniperLastMouseX, sniperLastMouseY, speed, w, x, y } = sniperData;
 
         let stepX = speed;
@@ -103,7 +104,8 @@ const Step = function (options) {
 
     const { stepData } = this;
 
-    stepData.draw = function(ctx, cb) {
+    stepData.draw = function(scene, cb) {
+        const { ctx } = scene;
         const { isStarted, maxR, r, speed, style, width, x, y } = stepData;
 
         ctx.beginPath();
@@ -143,7 +145,8 @@ const Explosion = function (options) {
 
     const { explosionData } = this;
 
-    explosionData.draw = function(ctx, cb) {
+    explosionData.draw = function(scene, cb) {
+        const { ctx } = scene;
         const { h, image, position, w, x, y } = explosionData;
 
         if (position !== 82) {
@@ -180,7 +183,8 @@ const Rocket = function (options) {
 
     const { rocketData } = this;
 
-    rocketData.draw = function(ctx, explosions, cb) {
+    rocketData.draw = function(scene, cb) {
+        const { explosions, ctx } = scene;
         const { h, image, speed, position, px, py, w, x, y } = rocketData;
 
         let stepX = speed;
@@ -276,7 +280,8 @@ const Monster = function (options) {
         }
     });
 
-    monsterData.draw = function(ctx, explosions, cb) {
+    monsterData.draw = function(scene, cb) {
+        const { ctx } = scene;
         const { h, image, speed, position, px, py, w, x, y } = monsterData;
 
         let stepX = speed;
