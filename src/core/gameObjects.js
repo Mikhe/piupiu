@@ -17,6 +17,31 @@ const init = function(elements) {
     });
 };
 
+const GameOver = function (options) {
+    this.gameData = {
+        color: '#fff',
+        font: '45px Arial',
+        label: 'Game Over',
+        x: 385,
+        y: 300,
+    };
+
+    const { gameData } = this;
+
+    gameData.draw = function(scene) {
+        const { color, font, label, x, y } = gameData;
+        const { ctx } = scene;
+
+        ctx.fillStyle = color;
+        ctx.font = font;
+        ctx.fillText(label, x, y);
+    };
+
+    Object.assign(gameData, options);
+
+    return gameData;
+};
+
 const Life = function (options) {
     this.lifeData = {
         colors: {
@@ -27,6 +52,7 @@ const Life = function (options) {
         },
         life        : 100,
         r		    : 65,
+        speed       : 10,
         width	    : 5,
     };
 
@@ -35,20 +61,36 @@ const Life = function (options) {
     lifeData.draw = function(scene, cb) {
         const { ctx, sniper } = scene;
         const { x, y } = sniper;
-        const { r, colors, width, } = lifeData;
+        const { life, r, colors, width, } = lifeData;
+        let currentColor;
 
+        if (life <= 30) {
+            currentColor = colors.dangerColor;
+        } else if (life <= 70) {
+            currentColor = colors.middleColor;
+        } else {
+            currentColor = colors.fullColor;
+        }
+
+        //base
         ctx.beginPath();
-        ctx.strokeStyle = colors.baseColor;
         ctx.lineWidth = width;
+        ctx.strokeStyle = currentColor;
+        ctx.arc(x, y, r, Math.PI/180 * -90, Math.PI/180 * 270, true);
+        ctx.closePath();
+        ctx.stroke();
 
-        ctx.arc(x, y, r, 0, 2 * Math.PI);
+        //current level
+        ctx.beginPath();
+        ctx.lineWidth = width;
+        ctx.strokeStyle = colors.baseColor;
+        ctx.arc(x, y, r, Math.PI/180 * -90, Math.PI/180 * ((100 - life) * 3.6 - 90));
+        ctx.stroke();
+        ctx.closePath();
 
         if (lifeData.life <= 0) {
             if (typeof cb == "function") cb();
         }
-
-        ctx.closePath();
-        ctx.stroke();
     };
 
     Object.assign(lifeData, options);
@@ -364,9 +406,24 @@ const Monster = function (options) {
         }
     });
 
+    monsterData.checkHit = function(scene) {
+        const { sniper, life } = scene;
+        const { speed, x, y } = monsterData;
+        const diffX = tools.getDiff(sniper.x, x);
+        const diffY = tools.getDiff(sniper.y, y);
+        const minDiff = speed + life.r + 20;
+        const hit = (diffX < minDiff && diffY < minDiff);
+
+        if (hit) {
+            scene.life.life -= life.speed;
+        }
+
+        return hit;
+    };
+
     monsterData.draw = function(scene, cb) {
         const { ctx } = scene;
-        const { h, image, speed, position, px, py, w, x, y } = monsterData;
+        const { checkHit, h, image, speed, position, px, py, w, x, y } = monsterData;
 
         let stepX = speed;
         let stepY = speed;
@@ -380,7 +437,7 @@ const Monster = function (options) {
             stepX = diffX / diffY * speed;
         }
 
-        if (diffX < speed && diffY < speed) {
+        if (checkHit(scene)) {
             if (typeof cb == "function") cb();
 
             return;
@@ -413,6 +470,7 @@ const Monster = function (options) {
 
 export {
     Explosion,
+    GameOver,
     init,
     Life,
     Monster,

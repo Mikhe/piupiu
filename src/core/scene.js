@@ -26,7 +26,9 @@ Scene.prototype.render = function () {
 
     score.draw(self);
     sniper.draw(self, mouseMoveOffset);
-    life.draw(self);
+    life.draw(self, () => {
+        self.destroy();
+    });
 
     rockets.forEach((rock, i) => {
         rock.draw(self, () => {
@@ -54,12 +56,17 @@ Scene.prototype.render = function () {
 };
 
 Scene.prototype.destroy = function() {
-    const { ctx, drawingInterval, monsterInterval } = this;
+    const { ctx, drawingInterval, gameover, monsterInterval, settings, score } = this;
     const { height, width } = ctx.canvas;
 
-    ctx.clearRect(0, 0, width, height);
     clearInterval(monsterInterval);
     clearInterval(drawingInterval);
+
+    setTimeout(() => {
+        ctx.clearRect(0, 0, width, height);
+        score.draw(this);
+        gameover.draw(this);
+    }, settings.drawSceneSpeed);
 };
 
 Scene.prototype.init = function(width, height) {
@@ -71,6 +78,7 @@ Scene.prototype.init = function(width, height) {
     this.monsters = [];
     this.rockets = [];
     this.steps = [];
+    this.gameover = new gameObjects.GameOver();
     this.life = new gameObjects.Life();
     this.score = new gameObjects.Score();
     this.sniper = new gameObjects.Sniper();
