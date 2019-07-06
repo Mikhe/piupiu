@@ -1,5 +1,3 @@
-/* global $ */
-
 import * as gameObjects from './gameObjects';
 
 const Scene = function (options) {
@@ -71,24 +69,24 @@ Scene.prototype.init = function() {
 
     this.render = this.render.bind(this);
 
-    $('#scene').mousemove(function(e) {
+    canvas.addEventListener('mousemove', (e) => {
         mouseMoveOffset.x = e.pageX - e.target.offsetLeft;
         mouseMoveOffset.y =	e.pageY - e.target.offsetTop;
     });
 
-    this.drawingInterval = setInterval(function() {
+    this.drawingInterval = setInterval(() => {
 
         //draw the scene
         self.render();
     }, settings.drawSceneSpeed);
 
-    $(canvas).mousedown(function(e){
+    canvas.addEventListener('mousedown', (e) => {
         const { originalEvent, which } = e;
 
         let mouseX = e.layerX || 0;
         let mouseY = e.layerY || 0;
 
-        if(originalEvent.layerX) {
+        if (originalEvent && originalEvent.layerX) {
             mouseX = originalEvent.layerX;
             mouseY = originalEvent.layerY;
         }

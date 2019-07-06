@@ -1,4 +1,4 @@
-const getDiff = (x,y) => {
+const getDiff = (x, y) => {
     return Math.abs(Number(x) - Number(y));
 };
 
