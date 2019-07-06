@@ -221,11 +221,15 @@ const Rocket = function (options) {
             const diffY = tools.getDiff(mon.y, y);
 
             return !(diffX < 20 && diffY < 20);
-
-
         });
 
-        return initialLength !== scene.monsters.length;
+        const hit = initialLength !== scene.monsters.length;
+
+        if (hit) {
+            scene.score.score++;
+        }
+
+        return hit;
     };
 
     rocketData.draw = function(scene, cb) {
