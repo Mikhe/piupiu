@@ -331,8 +331,7 @@ const Rocket = function (options) {
 
         if (hit) {
             scene.score.score++;
-            if (scene.score.score === scene.settings.levelUp) {
-                scene.score.score = 0;
+            if (scene.score.score === scene.settings.levelUp * scene.level.level) {
                 scene.level.level++;
                 scene.settings.monsterSpeed += 1;
             }
