@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/piupiu/static/css/main.84528ac9.chunk.css",
-    "main.js": "/piupiu/static/js/main.52eadcf8.chunk.js",
-    "main.js.map": "/piupiu/static/js/main.52eadcf8.chunk.js.map",
+    "main.js": "/piupiu/static/js/main.b049d1af.chunk.js",
+    "main.js.map": "/piupiu/static/js/main.b049d1af.chunk.js.map",
     "runtime~main.js": "/piupiu/static/js/runtime~main.15cc0b4a.js",
     "runtime~main.js.map": "/piupiu/static/js/runtime~main.15cc0b4a.js.map",
     "static/js/2.65aa1cca.chunk.js": "/piupiu/static/js/2.65aa1cca.chunk.js",
     "static/js/2.65aa1cca.chunk.js.map": "/piupiu/static/js/2.65aa1cca.chunk.js.map",
     "index.html": "/piupiu/index.html",
-    "precache-manifest.a8b4aff5cfbcfd9e6c65d6768d29da47.js": "/piupiu/precache-manifest.a8b4aff5cfbcfd9e6c65d6768d29da47.js",
+    "precache-manifest.cfde7d343736d46294ff536f7fef04e5.js": "/piupiu/precache-manifest.cfde7d343736d46294ff536f7fef04e5.js",
     "service-worker.js": "/piupiu/service-worker.js",
     "static/css/main.84528ac9.chunk.css.map": "/piupiu/static/css/main.84528ac9.chunk.css.map"
   }
