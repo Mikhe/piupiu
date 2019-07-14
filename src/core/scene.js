@@ -105,7 +105,6 @@ Scene.prototype.init = function(width, height) {
     });
 
     this.drawingInterval = setInterval(() => {
-
         //draw the scene
         self.render();
     }, settings.drawSceneSpeed);
@@ -119,15 +118,10 @@ Scene.prototype.init = function(width, height) {
     }, settings.monsterGenerateInterval);
 
     canvas.addEventListener('mousedown', (e) => {
-        const { originalEvent, which } = e;
+        const { which } = e;
 
-        let mouseX = e.layerX || 0;
-        let mouseY = e.layerY || 0;
-
-        if (originalEvent && originalEvent.layerX) {
-            mouseX = originalEvent.layerX;
-            mouseY = originalEvent.layerY;
-        }
+        let mouseX = e.offsetX || 0;
+        let mouseY = e.offsetY || 0;
 
         switch (which) {
             case 1: // left button
